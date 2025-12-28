@@ -1,0 +1,17 @@
+https://github.com/HarbourMasters/Starship/pull/238
+include/PR/xstdio.h:13:55:error: unknown type name 'va_list';
+
+Index: include/PR/xstdio.h
+--- include/PR/xstdio.h.orig
++++ include/PR/xstdio.h
+@@ -3,6 +3,10 @@
+ #include <libultraship.h>
+ #include <stdio.h>
+ 
++#ifdef __OpenBSD__
++#include <stdarg.h> /* va_list */
++#endif
++
+ #define FLAGS_SPACE 1
+ #define FLAGS_PLUS 2
+ #define FLAGS_MINUS 4

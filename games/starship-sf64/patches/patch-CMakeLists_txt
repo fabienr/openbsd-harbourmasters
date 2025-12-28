@@ -1,0 +1,27 @@
+Index: CMakeLists.txt
+--- CMakeLists.txt.orig
++++ CMakeLists.txt
+@@ -220,7 +220,7 @@ endif()
+ 
+ #=================== SSE2NEON ===================
+ set(SSE2NEON_DIR ${CMAKE_BINARY_DIR}/_deps/sse2neon)
+-file(DOWNLOAD "https://raw.githubusercontent.com/DLTcollab/sse2neon/refs/heads/master/sse2neon.h" "${SSE2NEON_DIR}/sse2neon.h")
++#file(DOWNLOAD "https://raw.githubusercontent.com/DLTcollab/sse2neon/refs/heads/master/sse2neon.h" "${SSE2NEON_DIR}/sse2neon.h")
+ 
+ include_directories(${SSE2NEON_DIR})
+ 
+@@ -609,7 +609,13 @@ include(ExternalProject)
+ ExternalProject_Add(TorchExternal
+ 	PREFIX TorchExternal
+     SOURCE_DIR ${CMAKE_SOURCE_DIR}/tools/Torch
+-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/Torch
++    CMAKE_ARGS
++      -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/Torch
++      -DFETCHCONTENT_SOURCE_DIR_LIBGFXD=${FETCHCONTENT_SOURCE_DIR_LIBGFXD}
++      -DFETCHCONTENT_SOURCE_DIR_SPDLOG=${FETCHCONTENT_SOURCE_DIR_SPDLOG}
++      -DFETCHCONTENT_SOURCE_DIR_YAML-CPP=${FETCHCONTENT_SOURCE_DIR_YAML-CPP}
++      -DFETCHCONTENT_SOURCE_DIR_TINYXML2=${FETCHCONTENT_SOURCE_DIR_TINYXML2}
++      -DCMAKE_CXX_SCAN_FOR_MODULES=${CMAKE_CXX_SCAN_FOR_MODULES}
+ )
+ ExternalProject_Get_Property(TorchExternal install_dir)
+ if (MSVC)

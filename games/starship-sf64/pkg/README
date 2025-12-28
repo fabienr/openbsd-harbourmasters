@@ -1,0 +1,18 @@
+To run StarshipSF64 you have to provide game assets, a ROM in z64 format.
+
+There are some links that could help in this regard.
+https://github.com/HarbourMasters/Starship
+https://github.com/sanni/cartreader
+
+StarshipSF64 opens a dialog to let you choose the ROM in z64 format.
+Depending on your desktop environment, install one of the dialog helper:
+
+doas pkg_add zenity # dialogs for GNOME
+doas pkg_add kdialog # KDE dialog boxes from shell scripts
+
+Otherwise, run the following command with your ROM, replace baserom.z64
+ with the actual ROM path on your system.
+
+${LOCALBASE}/share/starship-sf64/torch o2r \
+	-s ${LOCALBASE}/share/starship-sf64 -d ~/.local/share/ship \
+	baserom.z64

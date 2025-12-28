@@ -1,0 +1,16 @@
+https://github.com/Kenix3/libultraship/pull/971
+libultraship/src/graphic/Fast3D/backends/gfx_opengl.cpp:656:5:
+error: use of undeclared identifier 'glewInit'
+
+Index: libultraship/src/graphic/Fast3D/backends/gfx_opengl.cpp
+--- libultraship/src/graphic/Fast3D/backends/gfx_opengl.cpp.orig
++++ libultraship/src/graphic/Fast3D/backends/gfx_opengl.cpp
+@@ -652,7 +652,7 @@ void GfxRenderingAPIOGL::DrawTriangles(float buf_vbo[]
+ }
+ 
+ void GfxRenderingAPIOGL::Init() {
+-#ifndef __linux__
++#if !defined(__linux__) && !defined(__OpenBSD__)
+     glewInit();
+ #endif
+ 
