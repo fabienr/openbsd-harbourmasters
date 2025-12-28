@@ -1,0 +1,13 @@
+https://github.com/HarbourMasters/Shipwright/pull/6050
+
+Index: soh/src/buffers/heaps.c
+--- soh/src/buffers/heaps.c.orig
++++ soh/src/buffers/heaps.c
+@@ -1,6 +1,6 @@
+ #include "z64.h"
+ #include <assert.h>
+-#ifndef __APPLE__
++#if !defined(__APPLE__) && !defined(__OpenBSD__)
+ #include <malloc.h>
+ #endif
+ #include <stdlib.h>

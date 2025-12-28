@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=ShipwrightSOH
+Comment=An unofficial port of Star Fox 64
+Exec=ShipwrightSOH
+Terminal=false
+Icon=shipwright
+Type=Application
+Categories=Game;Retro;

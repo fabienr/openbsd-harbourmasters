@@ -1,0 +1,20 @@
+https://github.com/HarbourMasters/Shipwright/pull/6050
+
+soh/soh/GbiWrap.cpp:48:27: error:
+invalid operands to binary expression
+('uintptr_t' (aka 'unsigned long') and 'std::nullptr_t')
+   48 |         if (desiredTarget != NULL)
+      |             ~~~~~~~~~~~~~ ^  ~~~~
+
+Index: soh/soh/GbiWrap.cpp
+--- soh/soh/GbiWrap.cpp.orig
++++ soh/soh/GbiWrap.cpp
+@@ -45,7 +45,7 @@ extern "C" void gSPSegment(void* value, int segNum, ui
+     if (res) {
+         uintptr_t desiredTarget = (uintptr_t)ResourceMgr_LoadIfDListByName(imgData);
+ 
+-        if (desiredTarget != NULL)
++        if (desiredTarget)
+             target = desiredTarget;
+     }
+ 
