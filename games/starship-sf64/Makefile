@@ -68,6 +68,10 @@ MAINTAINER =	xxx
 # CC0 1.0 Universal
 PERMIT_PACKAGE =	Yes
 
+WANTLIB += ${COMPILER_LIBCXX} GL SDL2 bz2 c fmt m ogg
+WANTLIB += spdlog tinyxml2 vorbis vorbisenc vorbisfile
+WANTLIB += z zip
+
 # C++20
 COMPILER =		base-clang ports-gcc
 
