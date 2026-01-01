@@ -154,7 +154,7 @@ do-install:
 		${WRKSRC}/dist/SDL_GameControllerDB/gamecontrollerdb.txt \
 		${PREFIX}/${INSTALL_PREFIX}
 	cp -r ${WRKBUILD}/assets ${PREFIX}/${INSTALL_PREFIX}
-	# bundle torch
+	# bundle torch to allow manual ROM conversion
 	${INSTALL_PROGRAM} \
 		${WRKBUILD}/TorchExternal/src/TorchExternal-build/torch \
 		${PREFIX}/${INSTALL_PREFIX}/torch
