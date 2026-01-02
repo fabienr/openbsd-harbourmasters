@@ -1,0 +1,17 @@
+https://github.com/HarbourMasters/SpaghettiKart/pull/621
+
+error: cannot initialize a variable of type 's32' (aka 'int')
+ with an rvalue of type 'std::nullptr_t'.
+
+Index: src/port/Game.cpp
+--- src/port/Game.cpp.orig
++++ src/port/Game.cpp
+@@ -70,7 +70,7 @@ HarbourMastersIntro gMenuIntro;
+ 
+ TrackEditor::Editor gEditor;
+ 
+-s32 gTrophyIndex = NULL;
++s32 gTrophyIndex = 0;
+ 
+ /** Spawner Registries **/
+ Registry<TrackInfo> gTrackRegistry;

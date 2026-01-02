@@ -1,0 +1,126 @@
+Index: libultraship/src/fast/interpreter.cpp
+--- libultraship/src/fast/interpreter.cpp.orig
++++ libultraship/src/fast/interpreter.cpp
+@@ -1955,8 +1955,8 @@ void Interpreter::GfxDpSetScissor(uint32_t mode, uint3
+ 
+ void Interpreter::GfxDpSetTextureImage(uint32_t format, uint32_t size, uint32_t width, const char* texPath,
+                                        uint32_t texFlags, RawTexMetadata rawTexMetdata, const void* addr) {
+-    // fprintf(stderr, "GfxDpSetTextureImage: %s (width=%d; size=0x%X)\n",
+-    //         rawTexMetdata.resource ? rawTexMetdata.resource->GetInitData()->Path.c_str() : nullptr, width, size);
++    fprintf(stderr, "GfxDpSetTextureImage: %s (width=%d; size=0x%X)\n",
++            rawTexMetdata.resource ? rawTexMetdata.resource->GetInitData()->Path.c_str() : nullptr, width, size);
+     mRdp->texture_to_load.addr = (const uint8_t*)addr;
+     mRdp->texture_to_load.siz = size;
+     mRdp->texture_to_load.width = width;
+@@ -2022,6 +2022,9 @@ void Interpreter::GfxDpLoadBlock(uint8_t tile, uint32_
+     SUPPORT_CHECK(uls == 0);
+     SUPPORT_CHECK(ult == 0);
+ 
++    fprintf(stderr, "GfxDpLoadBlock, tile=%d, uls=%d, ult=%d, lrs=%d, dxt=%d\n",
++        tile, uls, ult, lrs, dxt);
++
+     // The lrs field rather seems to be number of pixels to load
+     uint32_t word_size_shift = 0;
+     switch (mRdp->texture_to_load.siz) {
+@@ -2054,9 +2057,8 @@ void Interpreter::GfxDpLoadBlock(uint8_t tile, uint32_
+     mRdp->loaded_texture[mRdp->texture_tile[tile].tmem_index].tex_flags = mRdp->texture_to_load.tex_flags;
+     mRdp->loaded_texture[mRdp->texture_tile[tile].tmem_index].raw_tex_metadata = mRdp->texture_to_load.raw_tex_metadata;
+     mRdp->loaded_texture[mRdp->texture_tile[tile].tmem_index].addr = mRdp->texture_to_load.addr;
+-    // fprintf(stderr, "GfxDpLoadBlock: line_size = 0x%x; orig = 0x%x; bpp=%d; lrs=%d\n", size_bytes,
+-    // orig_size_bytes,
+-    //         mRdp->texture_to_load.siz, lrs);
++    fprintf(stderr, "GfxDpLoadBlock: line_size = 0x%x; orig = 0x%x; bpp=%d; lrs=%d\n",
++        size_bytes, orig_size_bytes, mRdp->texture_to_load.siz, lrs);
+ 
+     const std::string& texPath =
+         mRdp->texture_to_load.raw_tex_metadata.resource != nullptr
+@@ -2127,6 +2129,8 @@ void Interpreter::GfxDpLoadTile(uint8_t tile, uint32_t
+     mRdp->loaded_texture[mRdp->texture_tile[tile].tmem_index].tex_flags = mRdp->texture_to_load.tex_flags;
+     mRdp->loaded_texture[mRdp->texture_tile[tile].tmem_index].raw_tex_metadata = mRdp->texture_to_load.raw_tex_metadata;
+     mRdp->loaded_texture[mRdp->texture_tile[tile].tmem_index].addr = mRdp->texture_to_load.addr + start_offset_bytes;
++    fprintf(stderr, "GfxDpLoadTile: line_size = 0x%x; orig = 0x%x; bpp=%d; lrs=%d\n",
++        size_bytes, orig_size_bytes, mRdp->texture_to_load.siz, lrs);
+ 
+     const std::string& texPath =
+         mRdp->texture_to_load.raw_tex_metadata.resource != nullptr
+@@ -2504,6 +2508,7 @@ void Interpreter::Gfxs2dexBgCopy(F3DuObjBg* bg) {
+     */
+ 
+     uintptr_t data = (uintptr_t)bg->b.imagePtr;
++    fprintf(stderr, "Gfxs2dexBgCopy data=%p\n", data);
+ 
+     uint32_t texFlags = 0;
+     RawTexMetadata rawTexMetadata = {};
+@@ -2519,6 +2524,7 @@ void Interpreter::Gfxs2dexBgCopy(F3DuObjBg* bg) {
+         rawTexMetadata.type = tex->Type;
+         rawTexMetadata.resource = tex;
+         data = (uintptr_t) reinterpret_cast<char*>(tex->ImageData);
++        fprintf(stderr, "Gfxs2dexBgCopy+gfx_check_image_signature data=%p\n", data);
+     }
+ 
+     s16 dsdx = 4 << 10;
+@@ -2541,6 +2547,7 @@ void Interpreter::Gfxs2dexBgCopy(F3DuObjBg* bg) {
+ 
+ void Interpreter::Gfxs2dexBg1cyc(F3DuObjBg* bg) {
+     uintptr_t data = (uintptr_t)bg->b.imagePtr;
++    fprintf(stderr, "Gfxs2dexBg1cyc data=%p\n", data);
+ 
+     uint32_t texFlags = 0;
+     RawTexMetadata rawTexMetadata = {};
+@@ -2556,6 +2563,7 @@ void Interpreter::Gfxs2dexBg1cyc(F3DuObjBg* bg) {
+         rawTexMetadata.type = tex->Type;
+         rawTexMetadata.resource = tex;
+         data = (uintptr_t) reinterpret_cast<char*>(tex->ImageData);
++        fprintf(stderr, "Gfxs2dexBg1cyc+gfx_check_image_signature data=%p\n", data);
+     }
+ 
+     // TODO: Implement bg scaling correctly
+@@ -3351,6 +3359,7 @@ bool gfx_set_timg_handler_rdp(F3DGfx** cmd0) {
+             }
+ 
+             i = (uintptr_t) reinterpret_cast<char*>(tex->ImageData);
++            fprintf(stderr, "gfx_set_timg_handler_rdp data=%p\n", i);
+             texFlags = tex->Flags;
+             rawTexMetdata.width = tex->Width;
+             rawTexMetdata.height = tex->Height;
+@@ -3358,6 +3367,8 @@ bool gfx_set_timg_handler_rdp(F3DGfx** cmd0) {
+             rawTexMetdata.v_pixel_scale = tex->VPixelScale;
+             rawTexMetdata.type = tex->Type;
+             rawTexMetdata.resource = tex;
++        } else {
++            fprintf(stderr, "gfx_set_timg_handler_rdp, invalid image data=%p\n", i);
+         }
+     }
+ 
+@@ -3419,6 +3430,7 @@ bool gfx_set_timg_otr_hash_handler_custom(F3DGfx** cmd
+ 
+         if (tex != NULL) {
+             Interpreter* gfx = mInstance.lock().get();
++            fprintf(stderr, "gfx_set_timg_otr_hash_handler_custom data=%p\n", tex);
+             gfx->GfxDpSetTextureImage(fmt, size, width, fileName, texFlags, rawTexMetadata, tex);
+         }
+     } else {
+@@ -3452,6 +3464,7 @@ bool gfx_set_timg_otr_filepath_handler_custom(F3DGfx**
+         uint32_t size = C0(19, 2);
+         uint32_t width = C0(0, 12) + 1;
+ 
++        fprintf(stderr, "gfx_set_timg_otr_filepath_handler_custom data=%p\n", texture->ImageData);
+         gfx->GfxDpSetTextureImage(fmt, size, width, fileName, texFlags, rawTexMetadata,
+                                   reinterpret_cast<char*>(texture->ImageData));
+     } else {
+@@ -3588,6 +3601,7 @@ bool gfx_load_block_handler_rdp(F3DGfx** cmd0) {
+     Interpreter* gfx = mInstance.lock().get();
+     F3DGfx* cmd = *cmd0;
+ 
++    fprintf(stderr, "gfx_load_block_handler_rdp\n");
+     gfx->GfxDpLoadBlock(C1(24, 3), C0(12, 12), C0(0, 12), C1(12, 12), C1(0, 12));
+     return false;
+ }
+@@ -3596,6 +3610,7 @@ bool gfx_load_tile_handler_rdp(F3DGfx** cmd0) {
+     Interpreter* gfx = mInstance.lock().get();
+     F3DGfx* cmd = *cmd0;
+ 
++    fprintf(stderr, "gfx_load_tile_handler_rdp\n");
+     gfx->GfxDpLoadTile(C1(24, 3), C0(12, 12), C0(0, 12), C1(12, 12), C1(0, 12));
+     return false;
+ }

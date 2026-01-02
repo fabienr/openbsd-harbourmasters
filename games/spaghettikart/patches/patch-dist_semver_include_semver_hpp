@@ -1,0 +1,18 @@
+https://github.com/Neargye/semver/pull/57
+
+Index: dist/semver/include/semver.hpp
+--- dist/semver/include/semver.hpp.orig
++++ dist/semver/include/semver.hpp
+@@ -78,6 +78,12 @@
+ #define SEMVER_CONSTEXPR inline
+ #endif
+ 
++#ifdef __OpenBSD__
++/* undef sys/types.h macro */
++#undef major
++#undef minor
++#endif
++
+ namespace semver {
+ 
+   namespace detail {

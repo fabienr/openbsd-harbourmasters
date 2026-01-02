@@ -1,0 +1,21 @@
+NOTE, this is a wip ports, the game crash as soon as you enter a race.
+
+To run SpaghettiKart you have to provide game assets, a ROM in z64 format.
+
+There are some links that could help in this regard.
+https://github.com/HarbourMasters/SpaghettiKart
+https://github.com/sanni/cartreader
+
+SpaghettiKart opens a dialog to let you choose the ROM in z64 format.
+Depending on your desktop environment, install one of the dialog helper:
+
+doas pkg_add zenity # dialogs for GNOME
+doas pkg_add kdialog # KDE dialog boxes from shell scripts
+
+Otherwise, run the following command with your ROM, replace baserom.z64
+ with the actual ROM path on your system.
+
+${LOCALBASE}/share/spaghettikart/torch o2r \
+	-s ${LOCALBASE}/share/spaghettikart -d ~/.local/share/spaghettify \
+	-a ${LOCALBASE}/share/spaghettikart/meta/mods.toml \
+	baserom.z64
