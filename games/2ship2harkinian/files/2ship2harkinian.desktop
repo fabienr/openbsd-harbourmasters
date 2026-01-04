@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=2ship2harkinian
+Comment=An unofficial port of The Legend of Zelda: Majora's Mask
+Exec=2ship2harkinian
+Terminal=false
+Icon=2ship2harkinian
+Type=Application
+Categories=Game;Retro;

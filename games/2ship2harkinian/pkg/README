@@ -1,0 +1,12 @@
+To run 2ship2harkinian you have to provide game assets, a ROM in z64 format.
+
+There are some links that could help in this regard.
+https://github.com/HarbourMasters/2ship2harkinian/
+https://www.shipofharkinian.com/setup-guide/dump-guide
+https://github.com/sanni/cartreader
+
+2ship2harkinian opens a dialog to let you choose the ROM in z64 format.
+Depending on your desktop environment, install one of the dialog helper:
+
+doas pkg_add zenity # dialogs for GNOME
+doas pkg_add kdialog # KDE dialog boxes from shell scripts
