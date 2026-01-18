@@ -1,8 +1,10 @@
 COMMENT =	game PC port of The Legend of Zelda: Ocarina of Time
 
-V =		9.1.1
-PKGNAME=	shipwright-${V}
-DIST_TUPLE =	github HarbourMasters Shipwright ${V} .
+V =		9.1.1pl20260118
+H =		18b00e7bc1d6ee02afe93208a327b13d94913ca5
+DIST_TUPLE =	github HarbourMasters Shipwright ${H} .
+DISTNAME =	Shipwright-${H}
+PKGNAME =	shipwright-${V}
 
 # install location
 INSTALL_PREFIX=	share/shipwright
@@ -15,10 +17,10 @@ MAINTAINER =	xxx
 
 # make versions
 DR_LIBS_ID=	da35f9d6c7374a95353fd1df1d394d44ab66cf01
-GAMECTRLDB_ID=	16ac3e553e23068e26819971f2cc6cd088a7f2f6
-LIBULTRASHIP_ID=17a0b7939bd05f5e617cef89457ca43774fc9a9f
+GAMECTRLDB_ID=	65490d3c39825a84f9c2cb4fa9bc359284f37ca2
+LIBULTRASHIP_ID=8c55f607f2249f3ac696fc0f7277553fe3ce75a6
 OTREXPORTER_ID=	32e088e28c8cdd055d4bb8f3f219d33ad37963f3
-ZAPDTR_ID=	684f21a475dcfeee89938ae1f4afc42768a3e7ef
+ZAPDTR_ID=	ee3397a365c5f350a60538c88f0643f155944836
 # libultraship
 IMGUI_ID=	v1.91.9b-docking
 LIBGFXD_ID=	008f73dca8ebc9151b205959b17773a19c5bd0da
@@ -105,15 +107,15 @@ CONFIGURE_ARGS+=\
 	-DFETCHCONTENT_SOURCE_DIR_STORMLIB=${WRKSRC}/dist/StormLib \
 	-DFETCHCONTENT_SOURCE_DIR_THREADPOOL=${WRKSRC}/dist/ThreadPool
 
+NO_TEST =		Yes
+
 # XXX debug library lookups
 # CONFIGURE_ARGS+=	-DCMAKE_FIND_DEBUG_MODE=TRUE
 # XXX game crash with MALLOC_OPTIONS G or U, debug stuff
-# DEBUG_PACKAGES =	${BUILD_PACKAGES}
+#DEBUG_PACKAGES =	${BUILD_PACKAGES}
 # CFLAGS =		-O0 -pipe -g
 # CXXFLAGS =		-O0 -pipe -g
 # CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
-
-NO_TEST =		Yes
 
 _PATCHES=${WRKSRC}/libultraship/cmake/dependencies/patches
 pre-patch:
@@ -156,61 +158,56 @@ do-install:
 _TMP=		/tmp/shipwright
 _SHIPWRIGHT_API=https://api.github.com/repos/HarbourMasters/Shipwright/contents/
 _GAMECTRLDB_API=https://api.github.com/repos/mdqinc/SDL_GameControllerDB/commits
-_SHIPWRIGHT_RAW=https://raw.githubusercontent.com/HarbourMasters/Shipwright/
+_SHIPWRIGHT_RAW=https://raw.githubusercontent.com/HarbourMasters/Shipwright/${H}
 _ULTRASHIP_RAW=	https://raw.githubusercontent.com/Kenix3/libultraship/
 
 versions:
 	# make versions
 	@mkdir -p ${_TMP} ;						\
+	cd ${_TMP} ;							\
 									\
-	ftp -VMo ${_TMP}/CMakeLists.shipwright				\
-	    ${_SHIPWRIGHT_RAW}/${V}/soh/CMakeLists.txt ;		\
-	printf "DR_LIBS_ID=\t%s\n" $$(					\
-		cat ${_TMP}/CMakeLists.shipwright |			\
+	ftp -VMo CMakeLists.shipwright					\
+	    ${_SHIPWRIGHT_RAW}/soh/CMakeLists.txt ;			\
+	printf "DR_LIBS_ID=\t%s\n" $$(cat CMakeLists.shipwright |	\
 		grep -A1 "mackron/dr_libs" |				\
 		awk '/GIT_TAG/{print $$2}' ) ;				\
 									\
-	ftp -VMo ${_TMP}/gamectrldb ${_GAMECTRLDB_API} ;		\
-	printf "GAMECTRLDB_ID=\t%s\n" $$(cat ${_TMP}/gamectrldb |	\
-		grep -m1 "sha" | awk -F'"' '{print $$4}' ) ;		\
+	ftp -VMo gamectrldb ${_GAMECTRLDB_API} ;			\
+	printf "GAMECTRLDB_ID=\t%s\n" $$(cat gamectrldb |		\
+		awk -F'"' '/sha/{print $$4;exit;}' ) ;			\
 									\
-	ftp -VMo ${_TMP}/libultraship					\
-	    ${_SHIPWRIGHT_API}/libultraship?ref=${V} ;			\
-	_ultraship_id=$$(cat ${_TMP}/libultraship | tr "," "\n" |	\
-		grep "html_url" | awk -F'["/]' '{print $$10}' ) ;	\
-	printf "LIBULTRASHIP_ID=%s\n" $$_ultraship_id ;			\
+	ftp -VMo libultraship ${_SHIPWRIGHT_API}/libultraship?ref=${H} ;\
+	_ultraship_id=$$(cat libultraship | tr "," "\n" |		\
+		awk -F'["/]' '/html_url/{print $$10}' ) ;		\
+	printf "LIBULTRASHIP_ID=%s\n" $${_ultraship_id} ;		\
 									\
-	ftp -VMo ${_TMP}/otrexporter					\
-		${_SHIPWRIGHT_API}/OTRExporter?ref=${V} ;		\
-	printf "OTREXPORTER_ID=\t%s\n" $$(				\
-		cat ${_TMP}/otrexporter | tr "," "\n" |			\
-		grep "html_url" | awk -F'["/]' '{print $$10}' ) ;	\
+	ftp -VMo otr ${_SHIPWRIGHT_API}/OTRExporter?ref=${H} ;		\
+	printf "OTREXPORTER_ID=\t%s\n" $$(cat otr | tr "," "\n" |	\
+		awk -F'["/]' '/html_url/{print $$10}' ) ;		\
 									\
-	ftp -VMo ${_TMP}/zapdtr						\
-		${_SHIPWRIGHT_API}/ZAPDTR?ref=${V} ;			\
-	printf "ZAPDTR_ID=\t%s\n" $$(					\
-		cat ${_TMP}/zapdtr | tr "," "\n" | 			\
-		grep "html_url" | awk -F'["/]' '{print $$10}' ) ;	\
+	ftp -VMo zapdtr ${_SHIPWRIGHT_API}/ZAPDTR?ref=${H} ;		\
+	printf "ZAPDTR_ID=\t%s\n" $$(cat zapdtr | tr "," "\n" |		\
+		awk -F'["/]' '/html_url/{print $$10}' ) ;		\
 									\
 	echo "# libultraship" ;						\
 	_ULTRASHIP_RAW="${_ULTRASHIP_RAW}/$${_ultraship_id}" ;		\
-	ftp -VMo ${_TMP}/common.cmake					\
+	ftp -VMo common.cmake						\
 	    $${_ULTRASHIP_RAW}/cmake/dependencies/common.cmake ;	\
-	printf "IMGUI_ID=\t%s\n" $$(cat ${_TMP}/common.cmake |		\
+	printf "IMGUI_ID=\t%s\n" $$(cat common.cmake |			\
 		grep -A1 "ocornut/imgui" |				\
 		awk '/GIT_TAG/{print $$2}' ) ;				\
-	printf "LIBGFXD_ID=\t%s\n" $$(cat ${_TMP}/common.cmake |	\
+	printf "LIBGFXD_ID=\t%s\n" $$(cat common.cmake |		\
 		grep -A1 "glankk/libgfxd" |				\
 		awk '/GIT_TAG/{print $$2}' ) ;				\
-	printf "PRISM_ID=\t%s\n" $$(cat ${_TMP}/common.cmake |		\
+	printf "PRISM_ID=\t%s\n" $$(cat common.cmake |			\
 		grep -A1 "KiritoDv/prism-processor" |			\
 		awk '/GIT_TAG/{print $$2}' ) ;				\
-	printf "STB_ID=\t\t%s\n" $$(cat ${_TMP}/common.cmake |		\
-		grep "nothings/stb" | awk -F'["/]' '{print $$8}' ) ;	\
-	printf "STORMLIB_ID=\t%s\n" $$(cat ${_TMP}/common.cmake |	\
+	printf "STB_ID=\t\t%s\n" $$(cat common.cmake |			\
+		awk -F'["/]' '/nothings\/stb/{print $$8}' ) ;		\
+	printf "STORMLIB_ID=\t%s\n" $$(cat common.cmake |		\
 		grep -A1 "ladislav-zezula/StormLib" |			\
 		awk '/GIT_TAG/{print $$2}' ) ;				\
-	printf "THREADPOOL_ID=\t%s\n" $$(cat ${_TMP}/common.cmake |	\
+	printf "THREADPOOL_ID=\t%s\n" $$(cat common.cmake |		\
 		grep -A1 "bshoshany/thread-pool" |			\
 		awk '/GIT_TAG/{print $$2}' ) ;
 
