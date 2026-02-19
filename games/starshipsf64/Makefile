@@ -1,19 +1,19 @@
 COMMENT =	game PC Port of Star Fox 64
 
-V =		2.0.0pl20251225
-ID =		e8246fa8e98b9fe00e33a16249aed403d4f81c1a
-DISTNAME =	Starship-${ID}
-PKGNAME =	starship-sf64-${V}
-DIST_TUPLE =	github HarbourMasters Starship ${ID} .
+V =		2.0.0pl20260116
+H =		d2ae1bae4a37173a712ccd7ca8f990afdf464adb
+DISTNAME =	Starship-${H}
+PKGNAME =	starshipsf64-${V}
+DIST_TUPLE =	github HarbourMasters Starship ${H} .
 
 # install location
-INSTALL_PREFIX=	share/starship-sf64
+INSTALL_PREFIX=	share/starshipsf64
 
 # make versions
 DR_LIBS_ID=	da35f9d6c7374a95353fd1df1d394d44ab66cf01
-GAMECTRLDB_ID=	16ac3e553e23068e26819971f2cc6cd088a7f2f6
+GAMECTRLDB_ID=	8b6d0e22319d9db7cdd709f5b26bd51f80036f01
 LIBULTRASHIP_ID=09dfab5fb2a9a047a6e268dc9db2daad9b2ce5f0
-SSE2NEON_ID=	ade5552a32852422e4f34f0beaa51790ef9f4171
+SSE2NEON_ID=	f1bc16e4b107f368a6098edd0d423803657837bd
 TORCH_ID=	cd92cc0f161c5e79e36f5dda0d0029edd3fc8d50
 # libultraship
 IMGUI_ID=	v1.91.9b-docking
@@ -118,10 +118,10 @@ NO_TEST =		Yes
 # XXX debug library lookups
 # CONFIGURE_ARGS+=	-DCMAKE_FIND_DEBUG_MODE=TRUE
 # XXX game crash with MALLOC_OPTIONS G or U, debug stuff
-# DEBUG_PACKAGES =	${BUILD_PACKAGES}
-# CFLAGS =		-O0 -pipe -g
-# CXXFLAGS =		-O0 -pipe -g
-# CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
+DEBUG_PACKAGES =	${BUILD_PACKAGES}
+CFLAGS =		-O0 -pipe -g
+CXXFLAGS =		-O0 -pipe -g
+CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
 
 _PATCHES=${WRKSRC}/libultraship/cmake/dependencies/patches
 pre-patch:
@@ -146,7 +146,7 @@ post-build:
 
 do-install:
 	# game
-	${INSTALL_PROGRAM} ${WRKBUILD}/Starship ${PREFIX}/bin/StarshipSF64
+	${INSTALL_PROGRAM} ${WRKBUILD}/Starship ${PREFIX}/bin/starshipsf64
 	${INSTALL_DATA_DIR} ${PREFIX}/${INSTALL_PREFIX}
 	${INSTALL_DATA} ${WRKBUILD}/config.yml ${PREFIX}/${INSTALL_PREFIX}
 	${INSTALL_DATA} ${WRKBUILD}/starship.o2r ${PREFIX}/${INSTALL_PREFIX}
@@ -160,15 +160,15 @@ do-install:
 		${PREFIX}/${INSTALL_PREFIX}/torch
 	# menu
 	${INSTALL_DATA_DIR} ${PREFIX}/share/applications
-	${INSTALL_DATA} ${FILESDIR}/starship-sf64.desktop \
-		${PREFIX}/share/applications/starship-sf64.desktop
+	${INSTALL_DATA} ${FILESDIR}/starshipsf64.desktop \
+		${PREFIX}/share/applications/starshipsf64.desktop
 	${INSTALL_DATA_DIR} ${PREFIX}/share/pixmaps
 	${INSTALL_DATA} ${WRKSRC}/logo.png \
-		${PREFIX}/share/pixmaps/starship-sf64.png
+		${PREFIX}/share/pixmaps/starshipsf64.png
 
 ### targets for port maintainer(s)
 
-_TMP=		/tmp/starship-sf64
+_TMP=		/tmp/starshipsf64
 _STARSHIP_API=	https://api.github.com/repos/HarbourMasters/Starship/contents/
 _SSE2NEON_API=	https://api.github.com/repos/DLTcollab/sse2neon/commits
 _GAMECTRLDB_API=https://api.github.com/repos/mdqinc/SDL_GameControllerDB/commits
@@ -182,7 +182,7 @@ versions:
 	@mkdir -p ${_TMP} ;						\
 									\
 	ftp -VMo ${_TMP}/CMakeLists.starship				\
-	    ${_STARSHIP_RAW}/${ID}/CMakeLists.txt ;			\
+	    ${_STARSHIP_RAW}/${H}/CMakeLists.txt ;			\
 	printf "DR_LIBS_ID=\t%s\n" $$(cat ${_TMP}/CMakeLists.starship |	\
 		grep -A1 "mackron/dr_libs" |				\
 		awk '/GIT_TAG/{print $$2}' ) ;				\
@@ -192,7 +192,7 @@ versions:
 		grep -m1 "sha" | awk -F'"' '{print $$4}' ) ;		\
 									\
 	ftp -VMo ${_TMP}/libultraship					\
-	    ${_STARSHIP_API}/libultraship?ref=${ID} ;			\
+	    ${_STARSHIP_API}/libultraship?ref=${H} ;			\
 	_ultraship_id=$$(cat ${_TMP}/libultraship | tr "," "\n" |	\
 		grep "html_url" | awk -F'["/]' '{print $$10}' ) ;	\
 	printf "LIBULTRASHIP_ID=%s\n" $$_ultraship_id ;			\
@@ -201,7 +201,7 @@ versions:
 	printf "SSE2NEON_ID=\t%s\n" $$(cat ${_TMP}/sse2neon |		\
 		grep -m1 "sha" | awk -F'"' '{print $$4}' ) ;		\
 									\
-	ftp -VMo ${_TMP}/torch ${_STARSHIP_API}/tools/Torch?ref=${ID} ;	\
+	ftp -VMo ${_TMP}/torch ${_STARSHIP_API}/tools/Torch?ref=${H} ;	\
 	_torch_id=$$(cat ${_TMP}/torch | tr "," "\n" | 			\
 		grep "html_url" | awk -F'["/]' '{print $$10}' ) ;	\
 	printf "TORCH_ID=\t%s\n" $$_torch_id ;				\

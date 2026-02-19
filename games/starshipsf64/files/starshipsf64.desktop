@@ -1,9 +1,9 @@
 [Desktop Entry]
 Version=1.0
-Name=Starship
+Name=StarshipSF64
 Comment=An unofficial port of Star Fox 64
-Exec=StarshipSF64
+Exec=starshipsf64
 Terminal=false
-Icon=starship-sf64
+Icon=starshipsf64
 Type=Application
 Categories=Game;Retro;
