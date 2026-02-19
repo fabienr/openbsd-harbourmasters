@@ -1,12 +1,10 @@
-NOTE, this is a wip ports, the game crash as soon as you enter a race.
-
-To run SpaghettiKart you have to provide game assets, a ROM in z64 format.
+To run spaghettikart you have to provide game assets, a ROM in z64 format.
 
 There are some links that could help in this regard.
 https://github.com/HarbourMasters/SpaghettiKart
 https://github.com/sanni/cartreader
 
-SpaghettiKart opens a dialog to let you choose the ROM in z64 format.
+spaghettikart opens a dialog to let you choose the ROM in z64 format.
 Depending on your desktop environment, install one of the dialog helper:
 
 doas pkg_add zenity # dialogs for GNOME
@@ -19,3 +17,13 @@ ${LOCALBASE}/share/spaghettikart/torch o2r \
 	-s ${LOCALBASE}/share/spaghettikart -d ~/.local/share/spaghettify \
 	-a ${LOCALBASE}/share/spaghettikart/meta/mods.toml \
 	baserom.z64
+
+For a better UI experience you may use a texture pack:
+https://evilgames.eu/texture-packs.htm
+
+Pre-made .o2r are directly compatible with shipwrightsoh and are built from:
+https://github.com/GhostlyDark/MK64-Reloaded-SK
+
+For example, to use HD pack (alternatively, can also use GitHub release assets):
+cd ~/.local/share/spaghettify/mods/
+ftp https://evilgames.eu/files/texture-packs/mk64-reloaded-v2025.12.20-sk-hd.o2r

@@ -1,7 +1,10 @@
-COMMENT =	game PC Port of Star Fox 64
+# XXX game crash entering a race
+# https://github.com/HarbourMasters/SpaghettiKart/issues/623
 
-V =		0.9.9.1pl20251231
-ID =		186ea294aedd05efc9ab799507dd96040a05741c
+COMMENT =	game PC Port of Mario Kart 64
+
+V =		0.9.9.1pl20260207
+ID =		4cc2fb5d13f8a1e8b983ed47ff04749e191d5769
 DISTNAME =	SpaghettiKart-${ID}
 PKGNAME =	spaghettikart-${V}
 DIST_TUPLE =	github HarbourMasters SpaghettiKart ${ID} .
@@ -11,10 +14,10 @@ INSTALL_PREFIX=	share/spaghettikart
 
 # make versions
 DR_LIBS_ID=	da35f9d6c7374a95353fd1df1d394d44ab66cf01
-GAMECTRLDB_ID=	01de5cf46ff3679b5378ec7dae365791e632b76a
-LIBULTRASHIP_ID=3ef24c3d1645fe1fc2a7065d1c2e132973ebc151
+GAMECTRLDB_ID=	95a35c7e65f7d71a3cc7d8e4d2dd9ffdac2bee28
+LIBULTRASHIP_ID=f40cfd33b8bc6237d635d4ed82838a7e3f785386
 SEMVER_ID=	v1.0.0-rc
-SSE2NEON_ID=	07fd1e90bd6b89e26337507acd73666f2cba883f
+SSE2NEON_ID=	f1bc16e4b107f368a6098edd0d423803657837bd
 TORCH_ID=	2d474ddb8da8b213fbdbb49d0273ce31fa955f35
 TOMLPLUSPLUS_ID=v3.4.0
 # libultraship
@@ -73,9 +76,8 @@ MAINTAINER =	xxx
 
 PERMIT_PACKAGE =	licence to clarify
 
-WANTLIB += ${COMPILER_LIBCXX} GL SDL2 SDL2_net bz2 c
-WANTLIB += fmt m ogg spdlog tinyxml2 vorbis vorbisenc
-WANTLIB += vorbisfile z zip
+WANTLIB += ${COMPILER_LIBCXX} GL SDL2 c fmt m ogg spdlog
+WANTLIB += tinyxml2 vorbis vorbisenc vorbisfile zip
 
 # C++20
 COMPILER =		base-clang ports-gcc
@@ -89,7 +91,6 @@ LIB_DEPENDS =		audio/libogg \
 			audio/libvorbis \
 			archivers/libzip \
 			devel/sdl2 \
-			devel/sdl2-net \
 			devel/spdlog \
 			textproc/tinyxml2
 
@@ -126,9 +127,9 @@ NO_TEST =		Yes
 # CONFIGURE_ARGS+=	-DCMAKE_FIND_DEBUG_MODE=TRUE
 # XXX game crash with MALLOC_OPTIONS G or U, debug stuff
 DEBUG_PACKAGES =	${BUILD_PACKAGES}
-CFLAGS =		-O0 -pipe -g
-CXXFLAGS =		-O0 -pipe -g
-CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
+#CFLAGS =		-O0 -pipe -g
+#CXXFLAGS =		-O0 -pipe -g
+#CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
 
 _PATCHES=${WRKSRC}/libultraship/cmake/dependencies/patches
 pre-patch:

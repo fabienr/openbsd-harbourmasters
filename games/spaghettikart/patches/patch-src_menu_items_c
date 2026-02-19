@@ -1,0 +1,15 @@
+Fix game crash without HD texture pack (mods).
+https://github.com/HarbourMasters/SpaghettiKart/issues/623
+
+Index: src/menu_items.c
+--- src/menu_items.c.orig
++++ src/menu_items.c
+@@ -3189,7 +3189,7 @@ Gfx* func_80096CD8(Gfx* displayListHead, s32 xPos, s32
+     gDPSetCombineMode(displayListHead++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
+ 
+     // Directly load and draw the entire texture
+-    gDPLoadTextureBlock(displayListHead++, ((u8*) LOAD_ASSET(D_0B002A00)) + (random_int(128) * 2), G_IM_FMT_IA,
++    gDPLoadTextureBlock(displayListHead++, D_0B002A00, G_IM_FMT_IA,
+                         G_IM_SIZ_16b, width, height, 0, G_TX_WRAP, G_TX_WRAP, G_TX_NOMASK, G_TX_NOMASK, G_TX_NOLOD,
+                         G_TX_NOLOD);
+     // Clamp positions to valid range
