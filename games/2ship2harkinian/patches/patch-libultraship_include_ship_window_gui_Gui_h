@@ -1,0 +1,15 @@
+fix crash on exist
+https://github.com/Kenix3/libultraship/commit/18fc792bf4ef3d0447478d1bb809dc7afc753c8d
+
+Index: libultraship/include/ship/window/gui/Gui.h
+--- libultraship/include/ship/window/gui/Gui.h.orig
++++ libultraship/include/ship/window/gui/Gui.h
+@@ -136,6 +136,8 @@ class Gui {
+   private:
+     GuiWindowInitData mImpl;
+     bool mNeedsConsoleVariableSave;
++    std::string mImGuiIniPath;
++    std::string mImGuiLogPath;
+     std::shared_ptr<GameOverlay> mGameOverlay;
+     std::shared_ptr<GuiMenuBar> mMenuBar;
+     std::shared_ptr<GuiWindow> mMenu;

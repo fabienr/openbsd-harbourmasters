@@ -10,3 +10,15 @@ Depending on your desktop environment, install one of the dialog helper:
 
 doas pkg_add zenity # dialogs for GNOME
 doas pkg_add kdialog # KDE dialog boxes from shell scripts
+
+For a better UI experience you may use a texture pack:
+https://evilgames.eu/texture-packs.htm
+
+Pre-made .o2r are directly compatible with 2ship2harkinian and are built from:
+https://github.com/GhostlyDark/MM-Reloaded-2S2H
+
+For example, to use HD pack (alternatively, can also use GitHub release assets):
+cd ~/.local/share/2ship/mods/
+ftp https://evilgames.eu/files/texture-packs/mm-reloaded-v11.0.0-2s2h-o2r-hd.7z
+7z x mm-reloaded-v11.0.0-2s2h-o2r-hd.7z
+rm mm-reloaded-v11.0.0-2s2h-o2r-hd.7z

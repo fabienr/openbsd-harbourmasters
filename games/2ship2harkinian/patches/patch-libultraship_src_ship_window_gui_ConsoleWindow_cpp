@@ -1,0 +1,19 @@
+fix crash on exist
+https://github.com/Kenix3/libultraship/commit/18fc792bf4ef3d0447478d1bb809dc7afc753c8d
+
+Index: libultraship/src/ship/window/gui/ConsoleWindow.cpp
+--- libultraship/src/ship/window/gui/ConsoleWindow.cpp.orig
++++ libultraship/src/ship/window/gui/ConsoleWindow.cpp
+@@ -291,10 +291,11 @@ int32_t ConsoleWindow::CheckVarType(const std::string&
+ 
+ ConsoleWindow::~ConsoleWindow() {
+     SPDLOG_TRACE("destruct console window");
++    delete[] mInputBuffer;
++    delete[] mFilterBuffer;
+ }
+ 
+ void ConsoleWindow::InitElement() {
+-    // TODO: These buffers are never freed.
+     mInputBuffer = new char[gMaxBufferSize];
+     strcpy(mInputBuffer, "");
+     mFilterBuffer = new char[gMaxBufferSize];
