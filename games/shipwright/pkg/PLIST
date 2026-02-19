@@ -1,4 +1,4 @@
-@bin bin/ShipwrightSOH
+@bin bin/shipwrightsoh
 share/applications/shipwright.desktop
 share/doc/pkg-readmes/${PKGSTEM}
 share/pixmaps/

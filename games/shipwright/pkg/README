@@ -1,12 +1,24 @@
-To run ShipwrightSOH you have to provide game assets, a ROM in z64 format.
+To run shipwrightsoh you have to provide game assets, a ROM in z64 format.
 
 There are some links that could help in this regard.
 https://github.com/HarbourMasters/Shipwright/
 https://www.shipofharkinian.com/setup-guide/dump-guide
 https://github.com/sanni/cartreader
 
-ShipwrightSOH opens a dialog to let you choose the ROM in z64 format.
+shipwrightsoh opens a dialog to let you choose the ROM in z64 format.
 Depending on your desktop environment, install one of the dialog helper:
 
 doas pkg_add zenity # dialogs for GNOME
 doas pkg_add kdialog # KDE dialog boxes from shell scripts
+
+For a better UI experience you may use a texture pack:
+https://evilgames.eu/texture-packs.htm
+
+Pre-made .o2r are directly compatible with shipwrightsoh and are built from:
+https://github.com/GhostlyDark/OoT-Reloaded-SoH
+
+For example, to use HD pack (alternatively, can also use GitHub release assets):
+cd ~/.local/share/soh/mods/
+ftp https://evilgames.eu/files/texture-packs/oot-reloaded-v11.0.0-soh-o2r-hd.7z
+7z x oot-reloaded-v11.0.0-soh-o2r-hd.7z
+rm oot-reloaded-v11.0.0-soh-o2r-hd.7z

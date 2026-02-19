@@ -2,7 +2,7 @@
 Version=1.0
 Name=ShipwrightSOH
 Comment=An unofficial port of The Legend of Zelda: Ocarina of Time
-Exec=ShipwrightSOH
+Exec=shipwrightsoh
 Terminal=false
 Icon=shipwright
 Type=Application

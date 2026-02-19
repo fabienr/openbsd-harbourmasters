@@ -1,10 +1,10 @@
 COMMENT =	game PC port of The Legend of Zelda: Ocarina of Time
 
-V =		9.1.1pl20260118
-H =		18b00e7bc1d6ee02afe93208a327b13d94913ca5
-DIST_TUPLE =	github HarbourMasters Shipwright ${H} .
+V =		9.1.2pl20260207
+H =		8fd41474c1dca59aef0c575d0c87035fdda281d4
 DISTNAME =	Shipwright-${H}
 PKGNAME =	shipwright-${V}
+DIST_TUPLE =	github HarbourMasters Shipwright ${H} .
 
 # install location
 INSTALL_PREFIX=	share/shipwright
@@ -17,8 +17,8 @@ MAINTAINER =	xxx
 
 # make versions
 DR_LIBS_ID=	da35f9d6c7374a95353fd1df1d394d44ab66cf01
-GAMECTRLDB_ID=	65490d3c39825a84f9c2cb4fa9bc359284f37ca2
-LIBULTRASHIP_ID=8c55f607f2249f3ac696fc0f7277553fe3ce75a6
+GAMECTRLDB_ID=	95a35c7e65f7d71a3cc7d8e4d2dd9ffdac2bee28
+LIBULTRASHIP_ID=5c8b975de422c71fd6cda44ada5543c9067f57a2
 OTREXPORTER_ID=	32e088e28c8cdd055d4bb8f3f219d33ad37963f3
 ZAPDTR_ID=	ee3397a365c5f350a60538c88f0643f155944836
 # libultraship
@@ -63,6 +63,9 @@ WANTLIB += execinfo fmt m ogg opus opusfile png spdlog
 WANTLIB += tinyxml2 vorbis vorbisenc vorbisfile z zip
 
 FIX_CRLF_FILES=		ZAPDTR/ZAPD/CMakeLists.txt
+
+# XXX wip audio test/debug
+#PATCH_LIST=	patch-* pre-decode/patch-*
 
 # C++20
 COMPILER =		base-clang ports-gcc
@@ -112,10 +115,10 @@ NO_TEST =		Yes
 # XXX debug library lookups
 # CONFIGURE_ARGS+=	-DCMAKE_FIND_DEBUG_MODE=TRUE
 # XXX game crash with MALLOC_OPTIONS G or U, debug stuff
-#DEBUG_PACKAGES =	${BUILD_PACKAGES}
-# CFLAGS =		-O0 -pipe -g
-# CXXFLAGS =		-O0 -pipe -g
-# CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
+DEBUG_PACKAGES =	${BUILD_PACKAGES}
+CFLAGS =		-O0 -pipe -g
+CXXFLAGS =		-O0 -pipe -g
+CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
 
 _PATCHES=${WRKSRC}/libultraship/cmake/dependencies/patches
 pre-patch:
@@ -138,7 +141,7 @@ post-build:
 
 do-install:
 	# game
-	${INSTALL_PROGRAM} ${WRKBUILD}/soh/soh ${PREFIX}/bin/ShipwrightSOH
+	${INSTALL_PROGRAM} ${WRKBUILD}/soh/soh ${PREFIX}/bin/shipwrightsoh
 	${INSTALL_DATA_DIR} ${PREFIX}/${INSTALL_PREFIX}
 	${INSTALL_DATA} ${WRKBUILD}/soh/soh.o2r ${PREFIX}/${INSTALL_PREFIX}
 	${INSTALL_DATA} \

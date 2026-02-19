@@ -4,7 +4,7 @@ https://github.com/HarbourMasters/ZAPDTR/pull/18
 Index: ZAPDTR/ZAPD/CMakeLists.txt
 --- ZAPDTR/ZAPD/CMakeLists.txt.orig
 +++ ZAPDTR/ZAPD/CMakeLists.txt
-@@ -480,12 +480,14 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "CafeOS")
+@@ -431,12 +431,14 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL "CafeOS")
  else()
  	set(THREADS_PREFER_PTHREAD_FLAG ON)
  	find_package(Threads REQUIRED)

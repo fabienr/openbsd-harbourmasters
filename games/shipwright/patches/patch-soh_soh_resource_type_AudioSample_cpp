@@ -1,0 +1,25 @@
+Index: soh/soh/resource/type/AudioSample.cpp
+--- soh/soh/resource/type/AudioSample.cpp.orig
++++ soh/soh/resource/type/AudioSample.cpp
+@@ -1,4 +1,5 @@
+ #include "AudioSample.h"
++#include <cstdlib>
+ 
+ namespace SOH {
+ AudioSample::~AudioSample() {
+@@ -6,7 +7,7 @@ AudioSample::~AudioSample() {
+         delete[] sample.book->book;
+     }
+     if (sample.sampleAddr != nullptr) {
+-        delete[] sample.sampleAddr;
++        std::free(sample.sampleAddr);
+     }
+ }
+ Sample* AudioSample::GetPointer() {
+@@ -16,4 +17,4 @@ Sample* AudioSample::GetPointer() {
+ size_t AudioSample::GetPointerSize() {
+     return sizeof(Sample);
+ }
+-} // namespace SOH
+\ No newline at end of file
++} // namespace SOH
