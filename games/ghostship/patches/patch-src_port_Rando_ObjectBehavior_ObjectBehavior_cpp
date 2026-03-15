@@ -1,0 +1,43 @@
+src/port/Rando/ObjectBehavior/ObjectBehavior.cpp:52:63: error:
+    cannot initialize a parameter of type 's32' (aka 'int')
+    with an rvalue of type 'std::nullptr_t'
+
+Index: src/port/Rando/ObjectBehavior/ObjectBehavior.cpp
+--- src/port/Rando/ObjectBehavior/ObjectBehavior.cpp.orig
++++ src/port/Rando/ObjectBehavior/ObjectBehavior.cpp
+@@ -49,7 +49,7 @@ void ModifyCoinStarObject(bool* shouldCancel, s16 x, s
+                                      : modelId == MODEL_STAR    ? bhvSpawnedStarNoLevelExit
+                                                                 : Rando::StaticData::GetBehaviorByModel(modelId);
+ 
+-    CustomItem::SpawnObject(modelId, behavior, x, y + 250, z, NULL, randoStaticCheck.randoCheckId,
++    CustomItem::SpawnObject(modelId, behavior, x, y + 250, z, 0, randoStaticCheck.randoCheckId,
+                             randoStaticCheck.actData);
+     *(shouldCancel) = true;
+ }
+@@ -75,7 +75,7 @@ void Rando::ObjectBehavior::Init() {
+         if (ev->model == MODEL_EXCLAMATION_BOX) {
+             return;
+         }
+-        ModifySpawnedObject(&event->cancelled, ev->posX, ev->posY, ev->posZ, NULL);
++        ModifySpawnedObject(&event->cancelled, ev->posX, ev->posY, ev->posZ, 0);
+     });
+ 
+     REGISTER_LISTENER(SpawnStar, EVENT_PRIORITY_NORMAL, [](IEvent* event) {
+@@ -87,7 +87,7 @@ void Rando::ObjectBehavior::Init() {
+             return;
+         }
+ 
+-        ModifySpawnedObject(&event->cancelled, ev->posX, ev->posY, ev->posZ, NULL);
++        ModifySpawnedObject(&event->cancelled, ev->posX, ev->posY, ev->posZ, 0);
+     });
+ 
+     REGISTER_LISTENER(SpawnCoinStar, EVENT_PRIORITY_NORMAL, [](IEvent* event) {
+@@ -127,7 +127,7 @@ void Rando::ObjectBehavior::Init() {
+         }
+ 
+         CustomItem::SpawnObject(modelId, behavior, randoStaticCheck.posX, randoStaticCheck.posY, randoStaticCheck.posZ,
+-                                NULL, randoStaticCheck.randoCheckId, randoStaticCheck.actData);
++                                0, randoStaticCheck.randoCheckId, randoStaticCheck.actData);
+ 
+         event->cancelled = true;
+     });

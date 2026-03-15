@@ -1,0 +1,14 @@
+https://github.com/Kenix3/libultraship/pull/971
+
+Index: libultraship/src/ship/window/gui/StatsWindow.cpp
+--- libultraship/src/ship/window/gui/StatsWindow.cpp.orig
++++ libultraship/src/ship/window/gui/StatsWindow.cpp
+@@ -23,6 +23,8 @@ void StatsWindow::DrawElement() {
+     ImGui::Text("Platform: macOS");
+ #elif defined(__linux__)
+     ImGui::Text("Platform: Linux");
++#elif defined(__OpenBSD__)
++    ImGui::Text("Platform: OpenBSD");
+ #else
+     ImGui::Text("Platform: Unknown");
+ #endif

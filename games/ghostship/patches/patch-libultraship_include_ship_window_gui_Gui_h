@@ -1,0 +1,14 @@
+WIP. Fix crash on exit, avoid duplicate ShutDownImGui() since the ~Fast3dWindow
+ now call it directly to free SDL ressources before SDL_Quit() is called.
+
+Index: libultraship/include/ship/window/gui/Gui.h
+--- libultraship/include/ship/window/gui/Gui.h.orig
++++ libultraship/include/ship/window/gui/Gui.h
+@@ -144,6 +144,7 @@ class Gui {
+     std::unordered_map<std::string, GuiTextureMetadata> mGuiTextures;
+     uint32_t mCursorVisibleTicks = 180;
+     uint32_t mCursorVisibleSeconds = 3;
++    bool mImGuiInitialized = false;
+ };
+ } // namespace Ship
+ 

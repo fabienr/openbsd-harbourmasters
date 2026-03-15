@@ -1,0 +1,25 @@
+WIP. Fix crash on exit, avoid duplicate ShutDownImGui() since the ~Fast3dWindow
+ now call it directly to free SDL ressources before SDL_Quit() is called.
+
+Index: libultraship/src/ship/window/gui/Gui.cpp
+--- libultraship/src/ship/window/gui/Gui.cpp.orig
++++ libultraship/src/ship/window/gui/Gui.cpp
+@@ -153,6 +153,7 @@ void Gui::Init(GuiWindowInitData windowImpl) {
+     ImGuiBackendInit();
+ 
+     mInterpreter = dynamic_pointer_cast<Fast::Fast3dWindow>(Context::GetInstance()->GetWindow())->GetInterpreterWeak();
++    mImGuiInitialized = true;
+ }
+ 
+ void Gui::ImGuiWMInit() {
+@@ -180,6 +181,10 @@ void Gui::ImGuiWMInit() {
+ }
+ 
+ void Gui::ShutDownImGui(Ship::Window* window) {
++    if (!mImGuiInitialized) {
++        return;
++    }
++    mImGuiInitialized = false;
+     switch (window->GetWindowBackend()) {
+ #ifdef ENABLE_OPENGL
+         case WindowBackend::FAST3D_SDL_OPENGL:

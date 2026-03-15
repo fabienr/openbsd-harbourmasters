@@ -1,0 +1,30 @@
+To run ghostship you have to provide game assets, a ROM in z64 format.
+
+There are some links that could help in this regard.
+https://github.com/HarbourMasters/Ghostship
+https://github.com/sanni/cartreader
+
+ghostship opens a dialog to let you choose the ROM in z64 format.
+Depending on your desktop environment, install one of the dialog helper:
+
+doas pkg_add zenity # dialogs for GNOME
+doas pkg_add kdialog # KDE dialog boxes from shell scripts
+
+Otherwise, run the following command with your ROM, replace baserom.z64
+ with the actual ROM path on your system.
+
+${LOCALBASE}/share/ghostship/torch o2r \
+	-s ${LOCALBASE}/share/ghostship -d ~/.local/share/sm64 \
+	baserom.z64
+
+For a better UI experience you may use a texture pack:
+https://evilgames.eu/texture-packs.htm
+
+Pre-made .o2r are directly compatible with shipwrightsoh and are built from:
+https://github.com/GhostlyDark/SM64-Reloaded-GS
+
+For example, to use HD pack (alternatively, can also use GitHub release assets):
+cd ~/.local/share/sm64/mods/
+ftp https://evilgames.eu/files/texture-packs/sm64-reloaded-v2.5.1-gs-o2r-hd.7z
+7z x sm64-reloaded-v2.5.1-gs-o2r-hd.7z
+rm sm64-reloaded-v2.5.1-gs-o2r-hd.7z

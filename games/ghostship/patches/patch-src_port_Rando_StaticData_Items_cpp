@@ -1,0 +1,32 @@
+src/port/Rando/StaticData/Items.cpp:35:12: error:
+cannot initialize return object of type 'int16_t' (aka 'short')
+with an rvalue of type 'std::nullptr_t'
+
+Index: src/port/Rando/StaticData/Items.cpp
+--- src/port/Rando/StaticData/Items.cpp.orig
++++ src/port/Rando/StaticData/Items.cpp
+@@ -32,7 +32,7 @@ int16_t GetModelByRandoItem(RandoItemId randoItem) {
+             return randoStaticItem.modelId;
+         }
+     }
+-    return NULL;
++    return MODEL_NONE;
+ }
+ 
+ const BehaviorScript* GetBehaviorByModel(int16_t modelId) {
+@@ -57,7 +57,7 @@ int16_t GetModelByBehavior(const BehaviorScript* behav
+             return macro.model;
+         }
+     }
+-    return NULL;
++    return MODEL_NONE;
+ }
+ 
+ RandoItemId GetShuffledRandoItem(RandoCheckId randoCheckId) {
+@@ -79,4 +79,4 @@ RandoAct GetShuffledRandoAct(RandoCheckId randoCheckId
+ }
+ 
+ } // namespace StaticData
+-} // namespace Rando
+\ No newline at end of file
++} // namespace Rando

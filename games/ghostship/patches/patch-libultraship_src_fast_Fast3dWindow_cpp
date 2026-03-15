@@ -1,0 +1,16 @@
+WIP. Fix crash on exit, call ShutDownImGui() to free SDL ressources before
+ SDL_Quit() is called.
+
+Index: libultraship/src/fast/Fast3dWindow.cpp
+--- libultraship/src/fast/Fast3dWindow.cpp.orig
++++ libultraship/src/fast/Fast3dWindow.cpp
+@@ -45,6 +45,9 @@ Fast3dWindow::Fast3dWindow() : Fast3dWindow(std::vecto
+ 
+ Fast3dWindow::~Fast3dWindow() {
+     SPDLOG_DEBUG("destruct fast3dwindow");
++    if (auto gui = GetGui()) {
++        gui->ShutDownImGui(this);
++    }
+     mInterpreter->Destroy();
+     delete mRenderingApi;
+     delete mWindowManagerApi;
