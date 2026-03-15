@@ -1,7 +1,7 @@
 COMMENT =	game PC port of The Legend of Zelda: Ocarina of Time
 
-V =		9.1.2pl20260207
-H =		8fd41474c1dca59aef0c575d0c87035fdda281d4
+V =		9.1.2pl20260314
+H =		7899b6a0484f098ccb4fe2f45088c7c2fd01c68a
 DISTNAME =	Shipwright-${H}
 PKGNAME =	shipwright-${V}
 DIST_TUPLE =	github HarbourMasters Shipwright ${H} .
@@ -17,8 +17,8 @@ MAINTAINER =	xxx
 
 # make versions
 DR_LIBS_ID=	da35f9d6c7374a95353fd1df1d394d44ab66cf01
-GAMECTRLDB_ID=	95a35c7e65f7d71a3cc7d8e4d2dd9ffdac2bee28
-LIBULTRASHIP_ID=5c8b975de422c71fd6cda44ada5543c9067f57a2
+GAMECTRLDB_ID=	ff46b15524f72e75d4b258343e77d0db6c5d351d
+LIBULTRASHIP_ID=61bf1fbe9fceb032eba3c3cf61f93ca4065fa78a
 OTREXPORTER_ID=	32e088e28c8cdd055d4bb8f3f219d33ad37963f3
 ZAPDTR_ID=	ee3397a365c5f350a60538c88f0643f155944836
 # libultraship

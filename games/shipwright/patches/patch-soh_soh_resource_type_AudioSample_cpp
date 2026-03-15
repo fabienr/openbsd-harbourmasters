@@ -16,10 +16,11 @@ Index: soh/soh/resource/type/AudioSample.cpp
      }
  }
  Sample* AudioSample::GetPointer() {
-@@ -16,4 +17,4 @@ Sample* AudioSample::GetPointer() {
+@@ -16,4 +17,5 @@ Sample* AudioSample::GetPointer() {
  size_t AudioSample::GetPointerSize() {
      return sizeof(Sample);
  }
 -} // namespace SOH
 \ No newline at end of file
 +} // namespace SOH
++
