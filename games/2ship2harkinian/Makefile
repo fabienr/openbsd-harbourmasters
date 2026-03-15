@@ -1,6 +1,6 @@
 COMMENT =	game PC port of The Legend of Zelda: Majora's Mask
 
-V =		4.0.0
+V =		4.0.2
 PKGNAME=	twoshiptwoharkinian-${V}
 DIST_TUPLE =	github HarbourMasters 2ship2harkinian ${V} .
 
@@ -15,7 +15,7 @@ MAINTAINER =	xxx
 
 # make versions
 DR_LIBS_ID=	da35f9d6c7374a95353fd1df1d394d44ab66cf01
-GAMECTRLDB_ID=	8b6d0e22319d9db7cdd709f5b26bd51f80036f01
+GAMECTRLDB_ID=	ff46b15524f72e75d4b258343e77d0db6c5d351d
 LIBULTRASHIP_ID=b2dd85ca393225afb0c949035e0eabf87751ff89
 OTREXPORTER_ID=	32e088e28c8cdd055d4bb8f3f219d33ad37963f3
 ZAPDTR_ID=	684f21a475dcfeee89938ae1f4afc42768a3e7ef
