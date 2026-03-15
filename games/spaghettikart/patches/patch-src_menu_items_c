@@ -4,7 +4,7 @@ https://github.com/HarbourMasters/SpaghettiKart/issues/623
 Index: src/menu_items.c
 --- src/menu_items.c.orig
 +++ src/menu_items.c
-@@ -3189,7 +3189,7 @@ Gfx* func_80096CD8(Gfx* displayListHead, s32 xPos, s32
+@@ -3159,7 +3159,7 @@ Gfx* func_80096CD8(Gfx* displayListHead, s32 xPos, s32
      gDPSetCombineMode(displayListHead++, G_CC_MODULATEIA_PRIM, G_CC_MODULATEIA_PRIM);
  
      // Directly load and draw the entire texture

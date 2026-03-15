@@ -1,0 +1,40 @@
+Program terminated with signal SIGSEGV, Segmentation fault.
+#0  0x00000e84a956ac1f in World::CleanWorld() ()
+[Current thread is 1 (process 326173)]
+(gdb) bt
+#0  0x00000e84a956ac1f in World::CleanWorld() ()
+#1  0x00000e84a956a431 in World::~World() ()
+#2  0x00000e86d8d0c2e2 in _libc___cxa_finalize (dso=0x0) at /usr/src/lib/libc/stdlib/atexit.c:177
+#3  0x00000e86d8d58de5 in _libc_exit (status=0) at /usr/src/lib/libc/stdlib/exit.c:54
+#4  0x00000e84a93d9ea2 in _start ()
+
+static World sWorldInstance is global and destroyed on exit.
+World::CleanWorld reset/flush gEditor & Sky::Instance on purpose for runtime.
+TrackEditor::Editor gEditor and std::unique_ptr<Sky> gSky are destroyed on exit.
+
+All three variable reside in the same Game.cpp file.
+Move sWorldInstance further so it get cleaned before gEditor and gSky.
+
+Index: src/port/Game.cpp
+--- src/port/Game.cpp.orig
++++ src/port/Game.cpp
+@@ -56,9 +56,6 @@ extern "C" void Graphics_PushFrame(Gfx* pool) {
+     GameEngine::ProcessGfxCommands(pool);
+ }
+ 
+-// Create the world instance
+-static World sWorldInstance;
+-
+ // Deferred cleaning when clearing all actors in the editor
+ bool bCleanWorld = false;
+ 
+@@ -84,6 +81,9 @@ DataRegistry<RandomItemTable> gItemTableRegistry;
+ 
+ std::unique_ptr<TrackBrowser> gTrackBrowser;
+ std::unique_ptr<Sky> gSky;
++
++// Create the world instance
++static World sWorldInstance;
+ 
+ World* GetWorld() {
+     return World::Instance;

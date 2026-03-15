@@ -1,7 +1,7 @@
 Index: CMakeLists.txt
 --- CMakeLists.txt.orig
 +++ CMakeLists.txt
-@@ -348,13 +348,13 @@ endif()
+@@ -355,13 +355,13 @@ endif()
  
  #=================== SSE2NEON ===================
  set(SSE2NEON_DIR ${CMAKE_BINARY_DIR}/_deps/sse2neon)
@@ -17,8 +17,8 @@ Index: CMakeLists.txt
  
  include_directories(${SEMVER_DIR})
  
-@@ -663,7 +663,13 @@ include(ExternalProject)
- ExternalProject_Add(TorchExternal
+@@ -670,7 +670,13 @@ if(NOT CMAKE_SYSTEM_NAME STREQUAL "NintendoSwitch")
+   ExternalProject_Add(TorchExternal
      PREFIX TorchExternal
      SOURCE_DIR ${CMAKE_SOURCE_DIR}/torch
 -    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/torch
@@ -31,4 +31,4 @@ Index: CMakeLists.txt
 +      -DCMAKE_CXX_SCAN_FOR_MODULES=${CMAKE_CXX_SCAN_FOR_MODULES}
  )
  
- ExternalProject_Get_Property(TorchExternal install_dir)
+   ExternalProject_Get_Property(TorchExternal install_dir)
