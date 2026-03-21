@@ -115,14 +115,6 @@ CONFIGURE_ARGS+=\
 
 NO_TEST =		Yes
 
-# XXX debug library lookups
-# CONFIGURE_ARGS+=	-DCMAKE_FIND_DEBUG_MODE=TRUE
-# XXX game crash with MALLOC_OPTIONS G or U, debug stuff
-DEBUG_PACKAGES =	${BUILD_PACKAGES}
-CFLAGS =		-O0 -pipe -g
-CXXFLAGS =		-O0 -pipe -g
-CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
-
 _PATCHES=${WRKSRC}/libultraship/cmake/dependencies/patches
 pre-patch:
 # because we force SOURCE_DIR, patches don't get applied
