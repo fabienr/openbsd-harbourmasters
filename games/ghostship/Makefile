@@ -1,7 +1,7 @@
 COMMENT =	game PC Port of Super Mario 64
 
-V =		1.0.2pl20260305
-H =		c51008985b51514e82878d973707742764abf853
+V =		1.0.2pl20260315
+H =		1868aa9fd7ba87605ab4421ca2273bf944804a55
 DISTNAME =	Ghostship-${H}
 PKGNAME =	ghostship-${V}
 DIST_TUPLE =	github HarbourMasters Ghostship ${H} .
@@ -10,7 +10,7 @@ DIST_TUPLE =	github HarbourMasters Ghostship ${H} .
 INSTALL_PREFIX=	share/ghostship
 
 # make versions
-GAMECTRLDB_ID=	ff46b15524f72e75d4b258343e77d0db6c5d351d
+GAMECTRLDB_ID=	4a8d0f2b3966bda5bcfa8e96a636c4b1fae62090
 LIBULTRASHIP_ID=0b76d895fbf49a990300d53d29c3c9efce06082c
 TORCH_ID=	97bddc6fc6114904f37937da693b55a76df0910e
 # libultraship
@@ -104,14 +104,6 @@ CONFIGURE_ARGS+=\
 	-DFETCHCONTENT_SOURCE_DIR_TINYXML2=${WRKSRC}/dist/tinyxml2
 
 NO_TEST =		Yes
-
-# XXX debug library lookups
-# CONFIGURE_ARGS+=	-DCMAKE_FIND_DEBUG_MODE=TRUE
-# XXX game crash with MALLOC_OPTIONS G or U, debug stuff
-DEBUG_PACKAGES =	${BUILD_PACKAGES}
-CFLAGS =		-O0 -pipe -g
-CXXFLAGS =		-O0 -pipe -g
-CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
 
 _PATCHES=${WRKSRC}/libultraship/cmake/dependencies/patches
 pre-patch:
