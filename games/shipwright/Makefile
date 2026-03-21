@@ -1,7 +1,7 @@
 COMMENT =	game PC port of The Legend of Zelda: Ocarina of Time
 
-V =		9.1.2pl20260314
-H =		7899b6a0484f098ccb4fe2f45088c7c2fd01c68a
+V =		9.1.2pl20260320
+H =		5c8ff765543b80cbdf39cae9b5c0d062a7abb367
 DISTNAME =	Shipwright-${H}
 PKGNAME =	shipwright-${V}
 DIST_TUPLE =	github HarbourMasters Shipwright ${H} .
@@ -17,7 +17,7 @@ MAINTAINER =	xxx
 
 # make versions
 DR_LIBS_ID=	da35f9d6c7374a95353fd1df1d394d44ab66cf01
-GAMECTRLDB_ID=	ff46b15524f72e75d4b258343e77d0db6c5d351d
+GAMECTRLDB_ID=	4a8d0f2b3966bda5bcfa8e96a636c4b1fae62090
 LIBULTRASHIP_ID=61bf1fbe9fceb032eba3c3cf61f93ca4065fa78a
 OTREXPORTER_ID=	32e088e28c8cdd055d4bb8f3f219d33ad37963f3
 ZAPDTR_ID=	ee3397a365c5f350a60538c88f0643f155944836
@@ -64,9 +64,6 @@ WANTLIB += tinyxml2 vorbis vorbisenc vorbisfile z zip
 
 FIX_CRLF_FILES=		ZAPDTR/ZAPD/CMakeLists.txt
 
-# XXX wip audio test/debug
-#PATCH_LIST=	patch-* pre-decode/patch-*
-
 # C++20
 COMPILER =		base-clang ports-gcc
 
@@ -111,14 +108,6 @@ CONFIGURE_ARGS+=\
 	-DFETCHCONTENT_SOURCE_DIR_THREADPOOL=${WRKSRC}/dist/ThreadPool
 
 NO_TEST =		Yes
-
-# XXX debug library lookups
-# CONFIGURE_ARGS+=	-DCMAKE_FIND_DEBUG_MODE=TRUE
-# XXX game crash with MALLOC_OPTIONS G or U, debug stuff
-DEBUG_PACKAGES =	${BUILD_PACKAGES}
-CFLAGS =		-O0 -pipe -g
-CXXFLAGS =		-O0 -pipe -g
-CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
 
 _PATCHES=${WRKSRC}/libultraship/cmake/dependencies/patches
 pre-patch:
