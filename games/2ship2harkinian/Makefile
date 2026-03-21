@@ -54,7 +54,8 @@ DIST_TUPLE+=	github nothings stb ${STB_ID} dist/stb
 DIST_TUPLE+=	github ladislav-zezula StormLib ${STORMLIB_ID} dist/StormLib
 DIST_TUPLE+=	github bshoshany thread-pool ${THREADPOOL_ID} dist/ThreadPool
 
-PERMIT_PACKAGE =	licence to clarify
+# CC0 1.0 Universal
+PERMIT_PACKAGE =	Yes
 
 WANTLIB += ${COMPILER_LIBCXX} GL SDL2 bz2 c execinfo
 WANTLIB += fmt m ogg opus opusfile png spdlog tinyxml2
@@ -105,14 +106,6 @@ CONFIGURE_ARGS+=\
 	-DFETCHCONTENT_SOURCE_DIR_THREADPOOL=${WRKSRC}/dist/ThreadPool
 
 NO_TEST =		Yes
-
-# XXX debug library lookups
-# CONFIGURE_ARGS+=	-DCMAKE_FIND_DEBUG_MODE=TRUE
-# XXX game crash with MALLOC_OPTIONS G or U, debug stuff
-# DEBUG_PACKAGES =	${BUILD_PACKAGES}
-# CFLAGS =		-O0 -pipe -g
-# CXXFLAGS =		-O0 -pipe -g
-# CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
 
 _PATCHES=${WRKSRC}/libultraship/cmake/dependencies/patches
 pre-patch:
