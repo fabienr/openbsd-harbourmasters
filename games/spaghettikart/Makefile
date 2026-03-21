@@ -1,13 +1,10 @@
-# XXX game crash entering a race
-# https://github.com/HarbourMasters/SpaghettiKart/issues/623
-
 COMMENT =	game PC Port of Mario Kart 64
 
 V =		0.9.9.1pl20260310
-ID =		f7aab65da475d3fc4661c166aa40f2692a8b3c52
-DISTNAME =	SpaghettiKart-${ID}
+H =		f7aab65da475d3fc4661c166aa40f2692a8b3c52
+DISTNAME =	SpaghettiKart-${H}
 PKGNAME =	spaghettikart-${V}
-DIST_TUPLE =	github HarbourMasters SpaghettiKart ${ID} .
+DIST_TUPLE =	github HarbourMasters SpaghettiKart ${H} .
 
 # install location
 INSTALL_PREFIX=	share/spaghettikart
@@ -123,14 +120,6 @@ CONFIGURE_ARGS+=\
 
 NO_TEST =		Yes
 
-# XXX debug library lookups
-# CONFIGURE_ARGS+=	-DCMAKE_FIND_DEBUG_MODE=TRUE
-# XXX game crash with MALLOC_OPTIONS G or U, debug stuff
-DEBUG_PACKAGES =	${BUILD_PACKAGES}
-#CFLAGS =		-O0 -pipe -g
-#CXXFLAGS =		-O0 -pipe -g
-#CONFIGURE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
-
 _PATCHES=${WRKSRC}/libultraship/cmake/dependencies/patches
 pre-patch:
 # because we force SOURCE_DIR, patches don't get applied
@@ -197,7 +186,7 @@ versions:
 	@mkdir -p ${_TMP} ;						\
 									\
 	ftp -VMo ${_TMP}/CMakeLists.spaghettikart			\
-	    ${_KART_RAW}/${ID}/CMakeLists.txt ;				\
+	    ${_KART_RAW}/${H}/CMakeLists.txt ;				\
 	printf "DR_LIBS_ID=\t%s\n" $$(					\
 		cat ${_TMP}/CMakeLists.spaghettikart | 			\
 		grep -A1 "mackron/dr_libs" |				\
@@ -208,7 +197,7 @@ versions:
 		grep -m1 "sha" | awk -F'"' '{print $$4}' ) ;		\
 									\
 	ftp -VMo ${_TMP}/libultraship					\
-	    ${_KART_API}/libultraship?ref=${ID} ;			\
+	    ${_KART_API}/libultraship?ref=${H} ;			\
 	_ultraship_id=$$(cat ${_TMP}/libultraship | tr "," "\n" |	\
 		grep "html_url" | awk -F'["/]' '{print $$10}' ) ;	\
 	printf "LIBULTRASHIP_ID=%s\n" $$_ultraship_id ;			\
@@ -221,7 +210,7 @@ versions:
 	printf "SSE2NEON_ID=\t%s\n" $$(cat ${_TMP}/sse2neon |		\
 		grep -m1 "sha" | awk -F'"' '{print $$4}' ) ;		\
 									\
-	ftp -VMo ${_TMP}/torch ${_KART_API}/torch?ref=${ID} ;		\
+	ftp -VMo ${_TMP}/torch ${_KART_API}/torch?ref=${H} ;		\
 	_torch_id=$$(cat ${_TMP}/torch | tr "," "\n" | 			\
 		grep "html_url" | awk -F'["/]' '{print $$10}' ) ;	\
 	printf "TORCH_ID=\t%s\n" $$_torch_id ;				\
